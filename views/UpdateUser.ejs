@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+	background-color: #f2f2f2;
+	font-family: Arial, sans-serif;
+}
+
+.signup-box {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	margin: auto;
+	margin-top: 100px;
+	padding: 20px;
+	max-width: 400px;
+}
+
+.signup-box h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.signup-box label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.signup-box input[type="text"],
+.signup-box input[type="email"],
+.signup-box input[type="password"],
+.signup-box input[type="submit"],
+.signup-box input[type="gender"] {
+	width: 93%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.signup-box input[type="submit"] {
+    width: 99%;
+	background-color: #4CAF50;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+	<div class="signup-box">
+		<h2>Update</h2>
+		<form action="/admin/update"   method="POST">
+			<label for="fullname">Full Name</label>
+			<span id="na" style="color: red;""></span>
+			<input type="text" id="fullname" name="name" value="<%=userdata.name%>" required>
+
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" value="<%=userdata.email%>" required>
+			<span id="text" style="color: red;""></span>
+		
+            <label for="gender">gender</label>
+			<span id="ge" style="color: red;""></span>
+			<input type="gender" id="gender" name="gender" value="<%=userdata.gender%>" required >
+			
+			            
+            <input type="hidden"  name="id" value="<%=userdata._id%>">
+             <input type="submit" value="Update" id="user">
+		</form>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$('#user').on('click',function(){
+		console.log("btn clicked");
+		var name1 = $('#fullname').val().trim()
+        console.log(name1)
+		var Nformat =  /^[a-zA-Z ]+$/
+		if(name1.match(Nformat)){
+			console.log("valid")
+		}else{
+			console.log("not valid")
+			var text = "plz check"
+			document.getElementById('na').innerHTML = text
+		}
+
+		var email1 = $('#email').val()
+		console.log(email1)
+		var EFormat =  /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+		if(email1.match(EFormat)){
+			console.log("email is ok")
+		}else{
+			console.log("No")
+			var text = "plz check"
+			document.getElementById('text').innerHTML = text
+		}
+		var gender1 = $('#gender').val()
+		var Gformat = /^(male|female)$/i
+		if(gender1.match(Gformat)){
+			console.log("ok")
+		}else{
+			console.log("not ok")
+			var text = "plz check"
+            document.getElementById('ge').innerHTML = text
+		}
+	})
+</script>
+</html>
